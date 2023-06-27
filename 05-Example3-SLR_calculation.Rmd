@@ -1,0 +1,36 @@
+# Example 3: Doing calculations in R
+
+We will now consider how to use RStudio to do more calculations. First of all, open a data set called \textbf{Calc.csv}, which contains some 'toy' data, by using the command:
+```{r, eval=FALSE}
+Calc <- read.csv("Calc.csv")
+```
+
+We will now create a number of new vectors by combining the columns named `data1` and `data2` and also by transforming each of these columns using the square-root function, `sqrt`, and the natural logarithm function, `log` (there are many other possibilities).
+
+
+Produce and examine the results from the following:
+
+```{r, eval=FALSE}
+Calc$data1 - Calc$data2                # difference 
+Calc$data1 / Calc$data2                # division
+Calc$data1 * Calc$data2                # multiplication
+sqrt(Calc$data1)                       # square-root
+log(Calc$data1)                        # natural log
+Calc$data1^2                           # square
+sum(Calc$data1^2)                      # sum of squares
+sum(Calc$data1 * Calc$data2)           # sum of products
+```
+
+Note: the `$` sign extracts the variables `data1`, `data2` from the dataframe `Calc`.
+
+Recall from lectures that for a line that passes through the origin, $Y_i = \beta x_i + \epsilon_i$, the best estimate of $\beta$, that is, $\hat{\beta}$ is
+
+$$\hat{\beta} = \frac{\sum_{i=1}^n x_i y_i}{\sum_{i=1}^n x_i^2}$$
+
+**QUESTION**: Using the Hubble data from Exercise 1 and the above calculations, produce the estimate of $\hat{\beta}$, that is, Hubble's Constant.
+
+```{r eval = FALSE, webex.hide="Solution"}
+beta_hat <- sum(hubble$Distance * hubble$Velocity) / sum(hubble$Distance * hubble$Distance)
+beta_hat
+```
+

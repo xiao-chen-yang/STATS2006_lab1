@@ -1,0 +1,134 @@
+
+# Example 1: Simple linear regression (SLR)
+
+The admissions committee of a comprehensive state university selected at random the records of 200 second-semester freshmen. The results, first-semester college GPA and SAT scores, are stored in the data set `Grades` in the package `PASWR`. The admissions committee wants to study the relationship between first-semester college grade point average (`gpa`) and scholastic aptitude test (`sat`) scores.
+
+To open this data file, type:
+```{r eval=FALSE}
+install.packages("PASWR")
+library(PASWR)
+GRADES <- Grades
+```
+
+```{r echo=FALSE}
+library(PASWR)
+GRADES <- Grades
+```
+
+This will assign the data to the object `GRADES`. To view the data, type 
+
+```{r eval=FALSE}
+GRADES
+```
+
+into the script file and running that line by either placing the cursor on the line and pressing *Ctrl* and *Enter*, or by clicking on the *Run* button in the top-right corner of the script file. The data will then appear in the *Console* window below.
+
+A spreadsheet of the data can be viewed by typing: 
+
+```{r eval=FALSE}
+fix(GRADES)
+```
+
+but note that you will need to close this window before trying to excute any further commands. The spreadsheet can also be viewed by clicking on the `GRADES` object in the Workspace (top right of the screen).
+
+## Creating scatterplots
+
+The relationship between `gpa` and `sat` scores can be examined by using a scatterplot:
+
+```{r, eval=FALSE}
+plot(gpa ~ sat, data = GRADES)
+```
+
+This will produce the basic scatterplot of `gpa` (y-axis) against `sat` (x-axis) shown in Figure \@ref(fig:grades-plot1).
+
+```{r grades-plot1, echo = FALSE, fig.align='center', out.width="70%", fig.cap="Scatterplot of `gpa` versus `sat`."}
+plot(gpa ~ sat, data = GRADES)
+```
+
+There are several options for annotating plots. First of all, you should add sensible axis labels to the plot. For example, by typing:
+
+```{r, eval=FALSE}
+plot(gpa ~ sat, data = GRADES, xlab = "SAT score", ylab = "GPA")
+```
+
+This will produce the scatterplot displayed in Figure \@ref(fig:grades-plot2).
+
+```{r grades-plot2, echo = FALSE, fig.align='center', out.width="70%", fig.cap="Scatterplot of `gpa` versus `sat` with annotated axis labels."}
+plot(gpa ~ sat, data = GRADES, xlab = "SAT score", ylab = "GPA")
+```
+
+Now edit the points by changing the symbol type, size and colour, such as
+
+```{r, eval=FALSE}
+plot(gpa ~ sat, data = GRADES, xlab = "SAT score", ylab = "GPA",
+     pch = 2, cex = 1.5, col = "blue")
+```
+
+The plotting character is determined by the `pch` argument, the size of the plotted characters by `cex`, and the colour by the 1col` argument, to produce Figure \@ref(fig:grades-plot3).
+
+```{r grades-plot3, echo = FALSE, fig.align='center', out.width="70%", fig.cap="Scatterplot of `gpa` versus `sat` with annotated axis labels and different characters plotted."}
+plot(gpa ~ sat, data = GRADES, xlab = "SAT score", ylab = "GPA",
+     pch = 2, cex = 0.7, col = "blue")
+```
+
+**DISCUSSION**: Looking at your plot, what can we say about the relationship between `gpa` and `sat`?
+
+`r hide("Hint")` 
+* Is the relationship linear or non-linear?
+* Is the relationship positive or negative?
+* How strong is the relationship?
+`r unhide()`
+
+## Fitting a linear model
+
+To find the equation that best describes the relationship between `gpa` and `sat` use:
+```{r eval=FALSE}
+lm(gpa ~ sat, data = GRADES)
+```
+
+This fits a simple linear regression model with the response variable `gpa` and the explanatory variable `sat`.
+
+From the `R` output, note down the equation of the fitted line that is given: *(Enter your answers to 3 decimal places.)*
+<center> `gpa` = `r fitb(c("-1.19206381","-1.192064","-1.19206","-1.1921","-1.192","-1.19","-1.2"))` + `r fitb(c("0.003094","0.00309","0.0031","0.003"))` `sat` </center>
+
+```{r eval = TRUE, webex.hide="Solution"}
+model.lm<- lm(gpa ~ sat, data = GRADES)
+coef(model.lm)
+```
+
+This is the line of best fit, describing the effect of `sat` on `gpa`.
+
+<br>
+
+**QUESTION**: Which of the following is the correct interpretation of the regression model?
+```{r, echo = FALSE}
+opts_p <- c("The intercept of the fitted line is -1.192, so for every unit increase in `sat`, we expect `gpa` to decrease by 1.192.", 
+"The intercept of the fitted line is -1.192, so for every unit increase in `gpa`, we expect `sat` to decrease by 1.192.",
+answer = "The slope coefficient of the fitted line is 0.0031, so for every unit increase in `sat`, we expect `gpa` to increase by 0.0031.",
+"The coefficient of the fitted line is 0.0031, so for every unit increase in `gpa`, we expect `sat` to increase by 0.0031.")
+```
+`r longmcq(opts_p)`
+
+<br>
+
+**QUESTION**: Use `R` to calculate the point estimate of the change in the mean GPA when the SAT score increases by 50 points.
+```{r eval = TRUE, webex.hide="Solution"}
+coef(model.lm)[1]*50
+```
+
+<br>
+
+**Plot of the data including the fitted line**
+
+To obtain a plot of the fitted values, we need to store the regression in an object:
+
+```{r}
+model <- lm(gpa ~ sat, data = GRADES)
+```
+
+A plot of the data can be re-produced as before with the fitted line added using the `abline` command. This command uses the intercept and slope information from the fitted line in `model`. This is done using:
+
+```{r eval=FALSE}
+plot(gpa ~ sat, data = GRADES, xlab = "SAT score", ylab = "GPA")
+abline(model)
+```

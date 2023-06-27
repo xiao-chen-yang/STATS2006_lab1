@@ -1,0 +1,53 @@
+# Solution
+
+TASK 1
+
+(a) Producing a scatterplot
+
+```{r, eval=FALSE}
+plot(HWFAT ~ ABS, data = HSWRESTLER)
+plot(HWFAT ~ TRICEPS, data = HSWRESTLER)
+```
+
+<br>
+
+TASK 2
+
+(a) Producing a scatterplot
+
+```{r, eval=FALSE}
+# Producing a scatterplot
+plot(Velocity ~ Distance, data = hubble, xlab="Distance", ylab="Velocity")
+```
+
+(c) Fitting a simple linear regression model
+
+```{r, eval=FALSE}
+model_hubble <- lm(Velocity ~ Distance, data = hubble)
+coef((model_hubble))
+```
+
+(d) Producing a plot of the data including the fitted line
+
+```{r, eval=FALSE}
+plot(Velocity ~ Distance, data = hubble)
+abline(model_hubble)
+```
+
+<br>
+
+TASK 3
+
+(a) Producing a scatterplot
+
+```{r, eval=FALSE}
+books <- read.csv("books.csv")
+plot(Number.of.Books ~ Year, data = books, xlab = "Books", ylab = "Number of books")
+```
+
+(c) Plotting the fitted line
+
+```{r, eval=FALSE}
+plot(Number.of.Books ~ Year, data = books, xlab = "Books", ylab = "Number of books")
+lines(fitted(bmodel))
+```

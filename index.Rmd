@@ -1,0 +1,91 @@
+---
+title: |
+    | S2Y Lab 1
+    | Exploring relationships and fitting linear models
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+---
+
+```{r setup, include = FALSE}
+library(webexercises)
+library(tinytex)
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(tidyverse)
+library(PASWR)
+
+GRADES <- Grades
+HSWRESTLER <- HSwrestler
+hubble <- read.csv("hubble.csv")
+books  <- read.csv("books.csv")
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r include=FALSE, echo=FALSE}
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+# Welcome to S2Y Lab 1
+
+Intended Learning Outcomes:
+
+- produce scatterplots of report quality;
+ 
+- fit linear regression models by using `lm`;
+ 
+- interpret least squares estimates of model parameters;
+
+- calculate least squares estimates of model parameters for simple linear regression.
+
+## Introduction
+
+In the lectures we have examined relationships between variables using scatterplots. We have considered how to fit a linear model, through estimating the parameters such as $\beta$ in the linear model $Y_i = \alpha + \beta x_i +\epsilon _i$, by the method of least squares or maximum likelihood. In today’s lab we shall use RStudio to explore and fit relationships using a variety of linear model examples.
+
+We assume that the data take the form $(y_i, x_i)$ for $i = 1, . . . , n$ and we will model the following relationship $Y_i = f(x_i) + \epsilon_i$.
+
+
+<div style="color: dimgrey;">
+
+## Optional: RStudio Quickstart Guide
+
+This course assumes basic knowledge of `R` and RStudio. The starting point is opening RStudio by going to:
+
+<center> Maths & Stats Apps > RStudio </center>
+
+To access the data in this course, it is best to open and save a new script file to work in within RStudio and to set the working directory. This will enable you to save your R commands and comments on your work as you go through each of the examples.
+
+To open a new script go to:
+
+<center> `File > New > R script` </center>
+
+This will open a new screen for you to type into.
+
+Go to:
+
+<center> `File > Save as` </center>
+
+and save the script file into your home directory. Now, start by setting the working directory in RStudio to the directory in which you have stored both the data and `R` script. One way of doing this is to go to:
+
+<center> `Session > Set Working Directory > To Source File Location` </center>
+
+This will point RStudio towards this directory to enable us to use files within that directory.
+
+It is useful to annotate your script file using comments so that you know what has been done when you look at it in the future. Comments can be added to a script file by starting the line with a # symbol.
+
+</div>
+
+## Credit where credit is due
+
+The labs in S2Y incorporate and adapt materials from:
+
+Ugarte, M. D., Militino, A. F., & Arnholt, A. T. (2008). [Probability and Statistics with R](https://ebookcentral.proquest.com/lib/gla/detail.action?docID=5338596). CRC press.
+
+The materials were converted into interactive labs using `Bookdown` and `webexercises` in Summer 2022 by four summer project students, Jennifer James, Megan Ruffle, Naphon Olley, William Ryan.
